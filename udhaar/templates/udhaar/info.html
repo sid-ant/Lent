@@ -11,12 +11,16 @@
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <!-- Custom styles for this template -->
-    <link href="style_h.css" rel="stylesheet">
+    {% load static %}
+    <link href="{% static 'udhaar/style_h.css' %}" rel="stylesheet">
   </head>
 
   <body>
-
-    <div class="container">
+    <script>
+    var jsonObject = JSON.parse('{{ info | escapejs }}');
+    console.log(jsonObject);
+    </script>
+    <div class="container" id = "main-cont">
       <div class="header clearfix">
         <nav>
           <ul class="nav nav-pills float-right">
@@ -41,15 +45,10 @@
         </div>
       </div>
 
+      <div id = "info-data">
 
-      <div class="card" style = "margin:1rem">
-        <div class="card-body">
-          <p class="card-text"> Siddhant owns Vedant Rs. 5
-          </p>
-        </div>
-      </div>
 
-      <div class="card" style = "margin:1rem">
+      <!-- <div class="card" style = "margin:1rem">
         <div class="card-body">
           <p class="card-text"> Saksham owns Vedant Rs. 250.12
           </p>
@@ -69,7 +68,8 @@
           <p class="card-text"> Alex owns Aishwarya Rs. 98
           </p>
         </div>
-      </div>
+      </div> -->
+    </div>
 
 
 
@@ -77,6 +77,24 @@
 
 
     </div> <!-- /container -->
+
+    <script>
+    var parent = document.getElementById('info-data');
+
+    for (var i=0; i<jsonObject.length; i++){
+      var html = [
+        '<div class="card" style = "margin:1rem">',
+          '<div class="card-body">',
+            '<p class="card-text">' + jsonObject[i].to + ' owns ' + jsonObject[i].from_user + ' Rs. ' + jsonObject[i].amount,
+            '</p>',
+          '</div>',
+        '</div>',
+      ].join("\n");
+      console.log(html);
+      parent.innerHTML+=html;
+    }
+    </script>
+
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

@@ -11,7 +11,8 @@
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <!-- Custom styles for this template -->
-    <link href="style_h.css" rel="stylesheet">
+    {% load static %}
+    <link href="{% static 'udhaar/style_h.css' %}" rel="stylesheet">
   </head>
 
   <body>
@@ -33,10 +34,11 @@
 
       <div class = "row" >
         <div class = "col" >
-          <a href="newgroup.html" style ="float:right; margin:2rem" class="btn btn-outline-success"> Create New Group</a>
+          <a href="/newgroup/" style ="float:right; margin:2rem" class="btn btn-outline-success"> Create New Group</a>
         </div>
       </div>
 
+      {% if not groupids %}
       <div class="card" style = "margin:1rem">
         <div class="card-header">
           No Groups!
@@ -45,65 +47,22 @@
           <p class="card-text">You don't seem to have any friends group yet.</p>
         </div>
       </div>
+      {% else %}
+      {% for i in groupids %}
 
       <div class="card" style = "margin:1rem">
         <div class="card-header">
-          Group 1
+          Group {{ i.gid }}
         </div>
         <div class="card-body">
-          <p class="card-text"> Carbon, Nitrogen, Helium...
-            <a href="info.html"  class="btn btn-outline-info" style="float:right">Info</a>
-
+          <p class="card-text"> Click on Info to get the Transactions Details
+            <a href="{% url 'info' i.gid %}"  class="btn btn-outline-info" style="float:right">Info</a>
           </p>
         </div>
       </div>
 
-      <div class="card" style = "margin:1rem">
-        <div class="card-header">
-          Group 3
-        </div>
-        <div class="card-body">
-          <p class="card-text"> Kirito, Al, Lelouch...
-          <button type="button" class="btn btn-outline-info" style="float:right">Info</button>
-          </p>
-        </div>
-      </div>
-
-      <div class="card" style = "margin:1rem">
-        <div class="card-header">
-          Group 3
-        </div>
-        <div class="card-body">
-          <p class="card-text"> Kirito, Al, Lelouch...
-          <button type="button" class="btn btn-outline-info" style="float:right">Info</button>
-          </p>
-        </div>
-      </div>
-
-      <div class="card" style = "margin:1rem">
-        <div class="card-header">
-          Group 3
-        </div>
-        <div class="card-body">
-          <p class="card-text"> Kirito, Al, Lelouch...
-          <button type="button" class="btn btn-outline-info" style="float:right">Info</button>
-          </p>
-        </div>
-      </div>
-
-      <div class="card" style = "margin:1rem">
-        <div class="card-header">
-          Group 3
-        </div>
-        <div class="card-body">
-          <p class="card-text"> Kirito, Al, Lelouch...
-          <button type="button" class="btn btn-outline-info" style="float:right">Info</button>
-          </p>
-        </div>
-      </div>
-
-
-
+      {% endfor %}
+      {% endif %}
 
     </div> <!-- /container -->
 
